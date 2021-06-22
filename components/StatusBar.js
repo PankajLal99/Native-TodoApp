@@ -11,7 +11,6 @@ const StatusBar = (props) => {
 const styles = StyleSheet.create({
   statusBar: {
     padding: 15,
-    textDecorationLine: "underline",
     textAlign: "center",
     flexDirection: "row",
     justifyContent: "center",
