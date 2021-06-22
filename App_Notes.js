@@ -1,7 +1,11 @@
 import React from "react";
 import {
   StyleSheet,
+  Text,
   View,
+  TextInput,
+  Button,
+  ScrollView,
   FlatList,
 } from "react-native";
 import TaskItem from "./components/TaskItem";
@@ -9,24 +13,29 @@ import StatusBar from "./components/StatusBar";
 import TaskInput from "./components/TaskInput";
 
 export default function App() {
+  const [task, setTask] = React.useState("");
   const [myTaskList, setMyTaskList] = React.useState([]);
 
-  const addTask = (task) => {
+  const addTask = () => {
     setMyTaskList((oldData) => {
       return [...oldData, { key: Math.random().toString(), task: task }];
     });
   };
+
   const removeTask = (key) => {
+    // console.log(key)
     const newTaskList = myTaskList.filter((curTask) => {
-      return curTask.key !== key;
+      return curTask.key != key;
     });
     setMyTaskList(newTaskList);
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar />
-      <TaskInput addTask={addTask} />
+      {/* Data property should have array 
+          Render Function  (renderItem) 
+          keyExtractor   
+      */}
       <FlatList
         keyExtractor={(item, index) => item.key}
         data={myTaskList}
@@ -38,6 +47,17 @@ export default function App() {
           />
         )}
       ></FlatList>
+      {/* ScrollView is Inefficient due to infinite Data */}
+      {/* <ScrollView>
+      {
+        myTaskList.map((curTask)=>
+            <View key={curTask.id} style={styles.showTasks}>
+              <Text style={styles.task}>{curTask.task}</Text>
+              <Button color="#393E46" onPress={()=>removeTask(curTask.id)} title="x"></Button>
+            </View>
+        )
+      }
+      </ScrollView> */}
     </View>
   );
 }
@@ -49,4 +69,5 @@ const styles = StyleSheet.create({
     paddingTop: "9%",
     backgroundColor: "#EEEEEE",
   },
+  
 });
