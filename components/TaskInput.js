@@ -9,10 +9,14 @@ const TaskInput = (props) => {
         <TextInput
           placeholder="Enter the Task"
           onChangeText={(text) => setTask(text)}
+          value={task}
           style={styles.inputArea}
         />
         <Button
-          onPress={() => props.addTask(task)}
+          onPress={() => {
+            props.addTask(task)
+            setTask("")
+          }}
           color="#00ADB5"
           style={styles.inputButton}
           title="Add Task"
